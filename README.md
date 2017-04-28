@@ -10,7 +10,7 @@ Python version = 3.5.2
 We have two Collections (tables in terms of SQL):
 1.  Player Details  - (https://www.fantasyfootballnerd.com/service/players/json/test/) 
 
-```json
+```
 {'_id': ObjectId('5903881f05488b5f544c5ba8'),
  'active': '1',
  'college': 'Youngstown State',
@@ -41,7 +41,7 @@ We have two Collections (tables in terms of SQL):
 
 2.  Team Details  - (http://www.fantasyfootballnerd.com/service/nfl-teams/json/test/)
 
-```json
+```
 {'_id': ObjectId('5903879b05488b59e0edbc36'),
  'code': 'ARI',
  'fullName': 'Arizona Cardinals',
