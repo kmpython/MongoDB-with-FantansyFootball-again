@@ -27,7 +27,7 @@ def main():
     Dbase_Obj = Dbase()
     conn = Dbase_Obj.setupConnection()
 
-####fetching team details:
+####fetching team details from using API:
     url = 'http://www.fantasyfootballnerd.com/service/nfl-teams/json/test/'
     team_detl = fetch_json_data(url)
     team_data = json.loads(team_detl)
@@ -49,7 +49,7 @@ def main():
 ####selecting the new inserted team
     print(collectionTeamDetl.find_one({"_id": {"$eq": result.inserted_id}}))
 
-####fetching player details:
+####fetching player details from the API:
     url = 'https://www.fantasyfootballnerd.com/service/players/json/test/'
     player_detl = fetch_json_data(url)
     player_data = json.loads(player_detl)
@@ -58,7 +58,7 @@ def main():
     collectionPlayerDetl = conn['PlayerDetails']
     collectionPlayerDetl.insert_many(player_data['Players'])
 
-####Deleting all players D.O.B is '0000-00-00'
+####Deleting all players whose D.O.B is '0000-00-00'
     count = collectionPlayerDetl.delete_many({"dob": "0000-00-00"})
     print('the number of documents deleted is :' + str(count.deleted_count))
 
@@ -80,7 +80,7 @@ def main():
     for documents in combined_player_detl:
         pprint(documents)
 
-####selecting with group by
+####selecting with group by clause
     result = collectionPlayerDetl.aggregate(
     [{
         "$group": {"_id": "$position", "count": {"$sum": 1}}
@@ -89,7 +89,7 @@ def main():
     for item in result:
         print(item)
 
-####querying the heaviest players in the collections
+####querying the heaviest players in the collections using sort
     weight = collectionPlayerDetl.aggregate([
         {"$sort": {"weight": 1}},
         {"$limit": 5},
